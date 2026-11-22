@@ -1,9 +1,9 @@
 {
-  "version": "2.2.2",
-  "latest_version": "2.2.2",
+  "version": "2.2.3",
+  "latest_version": "2.2.3",
   "minimum_supported_version": "2.2.0",
-  "tag": "v2.2.2",
-  "notes": "图形界面正式版：加密压缩 / 解密还原双流程、后台线程进度与 ETA、磁盘空间预检拦截、失败原因与堆栈可见；Qt 绑定为 PySide6（LGPL），产物为 onedir + zip 更新包并附带首次安装器；更新包、安装器与 version.json 改由公开产物仓库分发，客户端匿名拉取并校验 sha256；修复安装器编译时依赖 runner 本地中文语言文件的问题（语言文件已随仓库内置，缺失时自动回退英文）。",
+  "tag": "v2.2.3",
+  "notes": "图形界面正式版：加密压缩 / 解密还原双流程、后台线程进度与 ETA、磁盘空间预检拦截、失败原因与堆栈可见；Qt 绑定为 PySide6（LGPL），产物为 onedir + zip 更新包并附带首次安装器；更新包、安装器与 version.json 改由公开产物仓库分发，客户端匿名拉取并校验 sha256；修复安装器编译时依赖 runner 本地中文语言文件的问题（语言文件已随仓库内置，缺失时自动回退英文）；修复发版 CI 在 Windows runner 上 Python 输出中文触发 UnicodeEncodeError 的问题（job 级强制 UTF-8）；修复同步 version.json 到产物仓库时未跟踪文件被误判为「无变化」而跳过推送的问题。",
   "force_reason": "（仅当当前版本低于 minimum_supported_version 时展示）示例：加密容器格式升级为 TENC3，旧版本无法解密新产物，为保证数据可恢复必须更新。",
   "windows": {
     "asset": "TraceableEncryptionTool-GUI.zip",
