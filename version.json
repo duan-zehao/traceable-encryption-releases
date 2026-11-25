@@ -1,9 +1,9 @@
 {
-  "version": "2.2.5",
-  "latest_version": "2.2.5",
+  "version": "2.2.6",
+  "latest_version": "2.2.6",
   "minimum_supported_version": "2.2.0",
-  "tag": "v2.2.5",
-  "notes": "修复卸载后安装目录残留：卸载只清理程序文件与已知更新残留（*.new.zip / *.new.zip.part / *.new.unpacked / update_config.json），收尾用不带 /s 的 rd 删除已空的安装目录，用户自放文件不会被误删；安装前新增三层判断（无程序文件→正常安装；有程序文件且有 unins000.dat→正常覆盖；有程序文件但 unins000.dat 丢失→视为残骸，先把非程序文件移动到 <安装目录>.user_backup-<时间戳> 再清空目录继续安装，装完提示备份位置）；备份同卷用重命名不占额外空间，跨卷复制前预检可用空间，不足则中止并给出可操作提示；更新器的整目录备份与替换改为同卷重命名，跨卷才复制且先预检空间，失败可回退旧版本，卸载信息 unins000.* 不再丢失。",
+  "tag": "v2.2.6",
+  "notes": "自动更新改为无窗口“自我重启”：不再生成或调用 .cmd / cmd.exe / robocopy / ping / tasklist / timeout，改为用内部参数 --apply-update <计划文件> 以 CREATE_NO_WINDOW | DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP 隐藏启动自身，等待旧进程退出、同卷重命名或跨卷复制替换、失败回退、启动新版本并确认 3 秒存活全部由 Python 完成；更新全程不出现任何控制台窗口（2.2.5→2.2.6 这一次仍由旧版执行，可能短暂闪一次）。原有语义全部保留：同卷重命名、跨卷预检空间且不足不破坏现有安装、备份与回退、tec_update_*.log 与 update_failure.txt、已下载包 sha256 命中复用、启动后 3 秒确认存活；成功后的备份改名为 .tec_backup.done，由新版本下次启动清理。",
   "force_reason": "（仅当当前版本低于 minimum_supported_version 时展示）示例：加密容器格式升级为 TENC3，旧版本无法解密新产物，为保证数据可恢复必须更新。",
   "windows": {
     "asset": "TraceableEncryptionTool-GUI.zip",
