@@ -1,9 +1,9 @@
 {
-  "version": "2.2.6",
-  "latest_version": "2.2.6",
+  "version": "2.2.7",
+  "latest_version": "2.2.7",
   "minimum_supported_version": "2.2.0",
-  "tag": "v2.2.6",
-  "notes": "自动更新改为无窗口“自我重启”：不再生成或调用 .cmd / cmd.exe / robocopy / ping / tasklist / timeout，改为用内部参数 --apply-update <计划文件> 以 CREATE_NO_WINDOW | DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP 隐藏启动自身，等待旧进程退出、同卷重命名或跨卷复制替换、失败回退、启动新版本并确认 3 秒存活全部由 Python 完成；更新全程不出现任何控制台窗口（2.2.5→2.2.6 这一次仍由旧版执行，可能短暂闪一次）。原有语义全部保留：同卷重命名、跨卷预检空间且不足不破坏现有安装、备份与回退、tec_update_*.log 与 update_failure.txt、已下载包 sha256 命中复用、启动后 3 秒确认存活；成功后的备份改名为 .tec_backup.done，由新版本下次启动清理。",
+  "tag": "v2.2.7",
+  "notes": "新增加密前产物大小预估：GUI 加密页在选定输入或修改压缩算法/级别/轮数/深度/字符串编码/spool 阈值后，后台防抖抽样试压并显示「原始 → 压缩后（区间）→ 最终 .enc（区间）」三段数字，明确标注为估算值；CLI 新增 encrypt --estimate 只算不写盘。预估复用磁盘预检的 estimate_ratio_for_path 抽样能力（整理为公开的 estimate_ratio_profile_for_path），并模拟真实管线的多轮迭代压缩、按被采样文件完整体积加权、按编码膨胀系数换算（base64 4/3、base85 5/4、hex 2）；实测 LZMA/zlib 文本偏差约 ±2%、随机数据 +0.1%、已压缩 zip ≈0%、混合目录 +0.5%。磁盘预检的判定口径与安全余量保持不变。",
   "force_reason": "（仅当当前版本低于 minimum_supported_version 时展示）示例：加密容器格式升级为 TENC3，旧版本无法解密新产物，为保证数据可恢复必须更新。",
   "windows": {
     "asset": "TraceableEncryptionTool-GUI.zip",
