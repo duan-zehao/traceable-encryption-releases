@@ -1,9 +1,9 @@
 {
-  "version": "2.2.7",
-  "latest_version": "2.2.7",
+  "version": "2.2.8",
+  "latest_version": "2.2.8",
   "minimum_supported_version": "2.2.0",
-  "tag": "v2.2.7",
-  "notes": "新增加密前产物大小预估：GUI 加密页在选定输入或修改压缩算法/级别/轮数/深度/字符串编码/spool 阈值后，后台防抖抽样试压并显示「原始 → 压缩后（区间）→ 最终 .enc（区间）」三段数字，明确标注为估算值；CLI 新增 encrypt --estimate 只算不写盘。预估复用磁盘预检的 estimate_ratio_for_path 抽样能力（整理为公开的 estimate_ratio_profile_for_path），并模拟真实管线的多轮迭代压缩、按被采样文件完整体积加权、按编码膨胀系数换算（base64 4/3、base85 5/4、hex 2）；实测 LZMA/zlib 文本偏差约 ±2%、随机数据 +0.1%、已压缩 zip ≈0%、混合目录 +0.5%。磁盘预检的判定口径与安全余量保持不变。",
+  "tag": "v2.2.8",
+  "notes": "深度压缩模式的产物预估改为按真实管线预演：对每个抽样片段执行「预处理（ENC1/RLE1/SEQ1）→ 主压缩 → 后处理」闭环，轮数上限与正式深度压缩一致（max(轮数, 8)），把预处理层的收益直接计入，不再使用“区间下界减 15%”的经验折扣。实测对比真实 .enc：重复日志/CSV/zip/随机数据中值偏差 ±0.1%，长游程二进制从旧口径 +19.6% 降到 -0.4%，新区间下界由旧口径的 -25%~-31% 收紧到约 -10%。界面在深度模式下显示“深度模式预演中…较慢但更准”，结果行标注预演轮数与耗时；仍保持 650ms 防抖、单线程与过期结果丢弃。CLI 的 encrypt --estimate --deep 同步使用新口径，磁盘预检行为不变。",
   "force_reason": "（仅当当前版本低于 minimum_supported_version 时展示）示例：加密容器格式升级为 TENC3，旧版本无法解密新产物，为保证数据可恢复必须更新。",
   "windows": {
     "asset": "TraceableEncryptionTool-GUI.zip",
