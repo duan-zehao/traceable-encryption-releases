@@ -1,9 +1,9 @@
 {
-  "version": "2.2.4",
-  "latest_version": "2.2.4",
+  "version": "2.2.5",
+  "latest_version": "2.2.5",
   "minimum_supported_version": "2.2.0",
-  "tag": "v2.2.4",
-  "notes": "图形界面正式版：加密压缩 / 解密还原双流程、后台线程进度与 ETA、磁盘空间预检拦截、失败原因与堆栈可见；Qt 绑定为 PySide6（LGPL），产物为 onedir + zip 更新包并附带首次安装器；更新包、安装器与 version.json 改由公开产物仓库分发，客户端匿名拉取并校验 sha256；修复安装器编译时依赖 runner 本地中文语言文件的问题（语言文件已随仓库内置，缺失时自动回退英文）；修复发版 CI 在 Windows runner 上 Python 输出中文触发 UnicodeEncodeError 的问题（job 级强制 UTF-8）；修复同步 version.json 到产物仓库时未跟踪文件被误判为「无变化」而跳过推送的问题；修复自动更新在 onedir 模式下替换失败的问题（更新包改为下载到临时目录、替换前备份安装目录并按返回码判断复制结果、失败自动回退、启动后复查新进程存活、失败写日志并在下次启动提示、已下载包 sha256 一致时复用）。",
+  "tag": "v2.2.5",
+  "notes": "修复卸载后安装目录残留：卸载只清理程序文件与已知更新残留（*.new.zip / *.new.zip.part / *.new.unpacked / update_config.json），收尾用不带 /s 的 rd 删除已空的安装目录，用户自放文件不会被误删；安装前新增三层判断（无程序文件→正常安装；有程序文件且有 unins000.dat→正常覆盖；有程序文件但 unins000.dat 丢失→视为残骸，先把非程序文件移动到 <安装目录>.user_backup-<时间戳> 再清空目录继续安装，装完提示备份位置）；备份同卷用重命名不占额外空间，跨卷复制前预检可用空间，不足则中止并给出可操作提示；更新器的整目录备份与替换改为同卷重命名，跨卷才复制且先预检空间，失败可回退旧版本，卸载信息 unins000.* 不再丢失。",
   "force_reason": "（仅当当前版本低于 minimum_supported_version 时展示）示例：加密容器格式升级为 TENC3，旧版本无法解密新产物，为保证数据可恢复必须更新。",
   "windows": {
     "asset": "TraceableEncryptionTool-GUI.zip",
