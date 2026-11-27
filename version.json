@@ -1,9 +1,9 @@
 {
-  "version": "2.5.0",
-  "latest_version": "2.5.0",
+  "version": "2.5.1",
+  "latest_version": "2.5.1",
   "minimum_supported_version": "2.2.0",
-  "tag": "v2.5.0",
-  "notes": "压缩策略推荐升级为「压缩加密策略推荐」，评估口径覆盖到端到端。(1) 每个候选除压缩后体积与压缩耗时外，新增加密后的 .enc 最终落盘体积、加密耗时与编码耗时，并给出打包+压缩+加密+编码的端到端总耗时；体积优先按最终落盘体积、速度优先按端到端耗时排序，平衡评分同步改用这两项。(2) 落盘体积按「压缩后字节 + 1024B 容器开销」乘当前编码膨胀系数（base64/base64url 约 1.333、hex 2.0、base85 约 1.25）再加 320B 固定开销；加密/编码/打包速率按当前加密算法、是否流式与源盘实测标定。(3) GUI 试压表改为 7 列并同步推荐卡文案；CLI encrypt --recommend 表头与推荐行同步展示加密后落盘、加密耗时与端到端耗时。(4) 未传端到端参数或标定失败时自动回退旧的压缩口径，试压仍只读、不写盘、不执行真实加密；不改动实际压缩/加密算法行为与产物格式。(5) 新增 test_recommend_e2e.py 覆盖端到端字段与排序、旧口径兼容、标定接口和 GUI 离屏展示。",
+  "tag": "v2.5.1",
+  "notes": "修正窗口化 GUI 在压缩加密策略试压时闪一下黑色控制台窗口的问题。(1) 根因：试压前的 zstd GPU 预热会调用 nvidia-smi，而 gpu_accel 的 subprocess.run 未加隐藏窗口参数；GUI 以 console=False 打包，启动控制台子程序时 Windows 会新建控制台窗口。(2) 修复：Windows 下为 nvidia-smi 调用统一附加 CREATE_NO_WINDOW、STARTF_USESHOWWINDOW + SW_HIDE 与 stdin=DEVNULL；非 Windows 返回空参数。GPU 探测顺序、命令参数、结果解析与进程内缓存均未改变，也没有改变压缩/加密算法与产物格式。(3) 新增 test_gpu_hidden_window.py，断言隐藏参数、探测结果与缓存不变、超时兜底；离屏实跑试压确认调用带 0x08000000 且 wShowWindow=SW_HIDE。",
   "force_reason": "（仅当当前版本低于 minimum_supported_version 时展示）示例：加密容器格式升级为 TENC3，旧版本无法解密新产物，为保证数据可恢复必须更新。",
   "windows": {
     "asset": "TraceableEncryptionTool-GUI.zip",
